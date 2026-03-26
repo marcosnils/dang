@@ -9,7 +9,7 @@ import (
 	"dagger/dang/internal/dagger"
 )
 
-const Golang = "golang:1.25"
+const Golang = "golang:1.25@sha256:dfae680962532eeea67ab297f1166c2c4e686edb9a8f05f9d02d96fc9191833e"
 
 type DangSdk struct {
 	// +private
@@ -163,7 +163,7 @@ echo "ERROR: Failed to fetch Zig from any mirror"
 exit 1
 `, tarballName, zigMinisignPubKey)
 
-	return dag.Container().From("alpine:latest").
+	return dag.Container().From("alpine:latest@sha256:25109184c71bdad752c8312a8623239686a9a2071e8825f20acb8f2198c3f659").
 		WithExec([]string{"apk", "add", "--no-cache", "minisign", "xz", "coreutils"}).
 		WithNewFile("/fetch-zig.sh", script, dagger.ContainerWithNewFileOpts{Permissions: 0o755}).
 		WithExec([]string{"/fetch-zig.sh"}).
